@@ -1,5 +1,6 @@
 using Supplus.Infrastructure;
 using Supplus.Infrastructure.Data.Migrations;
+using Supplus.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,5 +34,5 @@ app.Run();
 void AplicarMigration()
 {
     using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-    ControleMigration.AplicarMigration(builder.Configuration.GetConnectionString("PostgreSql"), scope.ServiceProvider);
+    ControleMigration.AplicarMigration(builder.Configuration.ConnectioString(), scope.ServiceProvider);
 }
