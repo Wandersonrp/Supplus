@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Supplus.Comunicacao\Supplus.Comunicacao.csproj" />
+    <ProjectReference Include="..\..\Shared\Supplus.Exceptions\Supplus.Exceptions.csproj" />
+    <ProjectReference Include="..\Supplus.Domain\Supplus.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="UseCases\" />
+  </ItemGroup>
+
+</Project>

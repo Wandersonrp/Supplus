@@ -1,1 +1,16 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Backend/">
+    <Project Path="src/Backend/Supplus.Api/Supplus.Api.csproj" />
+    <Project Path="src/Backend/Supplus.Application/Supplus.Application.csproj" />
+    <Project Path="src/Backend/Supplus.Domain/Supplus.Domain.csproj" />
+    <Project Path="src/Backend/Supplus.Infrastructure/Supplus.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Supplus.Comunicacao/Supplus.Comunicacao.csproj" />
+    <Project Path="src/Shared/Supplus.Exceptions/Supplus.Exceptions.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/UtilitariosCompartilhados.Tests/UtilitariosCompartilhados.Tests.csproj" />
+  </Folder>
+</Solution>
