@@ -9,8 +9,6 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Validators\" />
-    <Folder Include="Responses\" />
-    <Folder Include="Requests\" />
   </ItemGroup>
 
 </Project>
