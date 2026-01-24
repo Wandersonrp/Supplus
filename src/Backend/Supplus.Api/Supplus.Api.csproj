@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\Shared\Supplus.Comunicacao\Supplus.Comunicacao.csproj" />
     <ProjectReference Include="..\..\Shared\Supplus.Exceptions\Supplus.Exceptions.csproj" />
     <ProjectReference Include="..\Supplus.Application\Supplus.Application.csproj" />
+    <ProjectReference Include="..\Supplus.Infrastructure\Supplus.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
