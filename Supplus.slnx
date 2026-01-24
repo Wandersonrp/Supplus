@@ -11,6 +11,7 @@
     <Project Path="src/Shared/Supplus.Exceptions/Supplus.Exceptions.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Supplus.UseCases.Tests/Supplus.UseCases.Tests.csproj" />
     <Project Path="tests/UtilitariosCompartilhados.Tests/UtilitariosCompartilhados.Tests.csproj" />
   </Folder>
 </Solution>
