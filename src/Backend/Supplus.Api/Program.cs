@@ -1,3 +1,4 @@
+using Supplus.Application;
 using Supplus.Infrastructure;
 using Supplus.Infrastructure.Data.Migrations;
 using Supplus.Infrastructure.Extensions;
@@ -12,6 +13,9 @@ builder.Services.AddOpenApi();
 
 // Adiciona DI do projeto de Infraestrutura
 builder.Services.AdicionaInrastructure(builder.Configuration);
+
+// Adiciona DI do projeto de Application
+builder.Services.AdicionaApplication();
 
 var app = builder.Build();
 
