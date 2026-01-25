@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Backend\Supplus.Application\Supplus.Application.csproj" />
     <ProjectReference Include="..\..\src\Shared\Supplus.Comunicacao\Supplus.Comunicacao.csproj" />
+    <ProjectReference Include="..\UtilitariosCompartilhados.Tests\UtilitariosCompartilhados.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>
