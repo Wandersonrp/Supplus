@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Supplus.Domain.Repositories;
 using Supplus.Infrastructure.Data.Context;
+using Supplus.Infrastructure.Data.Repositories;
 using Supplus.Infrastructure.Extensions;
 using System.Reflection;
 
@@ -14,6 +16,7 @@ public static class DIExtensions
     {
         ConfiguraDbContext(services, configuration);
         ConfiguraFluentMigrator(services, configuration);
+        ConfiguraRepositorios(services);
     }
     
     private static void ConfiguraDbContext(IServiceCollection services, IConfiguration configuration)
@@ -37,5 +40,13 @@ public static class DIExtensions
                 .For
                 .All();
         });
+    }
+
+    private static void ConfiguraRepositorios(IServiceCollection services)
+    {
+        services
+            .AddScoped(typeof(IRepository<>), typeof(BaseRepository<>))
+            .AddScoped<IUsuarioRepository, UsuarioRepository>()
+            .AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }
