@@ -64,10 +64,13 @@ public class LoginUseCaseTest
         var usuarioRepository = new UsuarioRepositoryBuilder();
         var passwordHasher = PasswordHasherBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
+        var geradorAccessToken = new GeradorTokenJwtBuilder();
 
         if (usuario is not null)
             usuarioRepository.ObterPorEmailAsync(usuario);
 
-        return new LoginUseCase(usuarioRepository.Build(), passwordHasher, unitOfWork);
+        geradorAccessToken.Gerar();
+
+        return new LoginUseCase(usuarioRepository.Build(), passwordHasher, unitOfWork, geradorAccessToken.Build());
     }
 }
