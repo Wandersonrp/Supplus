@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Backend/">
     <Project Path="src/Backend/Supplus.Api/Supplus.Api.csproj" />

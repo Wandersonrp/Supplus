@@ -19,7 +19,7 @@ public class LoginUseCaseTest
 
         var request = new RequestLoginJson(email, senha);        
 
-        var usuario = new Usuario(request.Email!, nome: "John", sobrenome: "Doe", role: Role.Administrador);
+        var usuario = new Usuario(request.Email!, nome: "John", sobrenome: "Doe", 1, role: Role.Administrador);
 
         // Atribui a senha hasheada ao usuário
         usuario.AtribuirSenha(PasswordHasherBuilder.Build().HashPassword(usuario, request.Senha!));

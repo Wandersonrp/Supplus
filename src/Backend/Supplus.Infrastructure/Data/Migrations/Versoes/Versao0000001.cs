@@ -10,8 +10,7 @@ public class Versao0000001 : VersaoBase
         CriarTabela(tabela: "Usuarios", nomeId: "IdUsuario")
             .WithColumn("Nome").AsString(50).NotNullable()
             .WithColumn("Sobrenome").AsString(50).NotNullable()
-            .WithColumn("Email").AsString(150).NotNullable().Indexed()
-            .WithColumn("NomeCompleto").AsString(101).NotNullable()
+            .WithColumn("Email").AsString(150).NotNullable().Indexed()            
             .WithColumn("Senha").AsString().NotNullable()
             .WithColumn("Role").AsInt32().NotNullable();
     }

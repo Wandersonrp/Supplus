@@ -11,8 +11,13 @@ public sealed class Usuario : EntidadeBase
     public Role Role { get; private set; }
 
     private string _senha;
-    
-    public Usuario(string email, string nome, string sobrenome, Role? role = null)
+
+    public Usuario()
+    {
+    }
+
+    public Usuario(string email, string nome, string sobrenome, long criadoPor, Role? role = null) : 
+        base(criadoPor)
     {
         _senha = string.Empty;
         
@@ -20,7 +25,7 @@ public sealed class Usuario : EntidadeBase
         Nome = nome;
         Sobrenome = sobrenome;
         NomeCompleto = ObterNomeCompleto();        
-        Role = role ?? Role.UsuarioComum;
+        Role = role ?? Role.UsuarioComum;        
     }
 
     public void AtribuirSenha(string senha)
