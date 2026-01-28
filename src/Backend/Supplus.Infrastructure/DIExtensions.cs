@@ -16,8 +16,12 @@ public static class DIExtensions
 {
     public static void AdicionaInrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        ConfiguraDbContext(services, configuration);
-        ConfiguraFluentMigrator(services, configuration);
+        if(!configuration.EAmbienteTeste())
+        {
+            ConfiguraDbContext(services, configuration);
+            ConfiguraFluentMigrator(services, configuration);
+        }
+        
         ConfiguraRepositorios(services);
         ConfiguraServicos(services, configuration);
     }
@@ -25,7 +29,7 @@ public static class DIExtensions
     private static void ConfiguraDbContext(IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("PostgreSql") ??
-            throw new Exception(configuration.ConnectioString());
+            throw new Exception(configuration.ConnectionString());
 
         services.AddDbContext<SupplusDbContext>(opt =>
         {
@@ -38,7 +42,7 @@ public static class DIExtensions
         services.AddFluentMigratorCore().ConfigureRunner(opt =>
         {
             opt.AddPostgres()
-                .WithGlobalConnectionString(configuration.ConnectioString())
+                .WithGlobalConnectionString(configuration.ConnectionString())
                 .ScanIn(Assembly.Load("Supplus.Infrastructure"))
                 .For
                 .All();
