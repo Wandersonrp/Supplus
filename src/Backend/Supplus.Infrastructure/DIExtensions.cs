@@ -2,8 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Supplus.Domain.Repositories;
+using Supplus.Domain.Services;
 using Supplus.Infrastructure.Data.Context;
+using Supplus.Infrastructure.Data.Repositories;
 using Supplus.Infrastructure.Extensions;
+using Supplus.Infrastructure.Services.Seguranca.Tokens.Jwt;
 using System.Reflection;
 
 namespace Supplus.Infrastructure;
@@ -12,14 +16,20 @@ public static class DIExtensions
 {
     public static void AdicionaInrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        ConfiguraDbContext(services, configuration);
-        ConfiguraFluentMigrator(services, configuration);
+        if(!configuration.EAmbienteTeste())
+        {
+            ConfiguraDbContext(services, configuration);
+            ConfiguraFluentMigrator(services, configuration);
+        }
+        
+        ConfiguraRepositorios(services);
+        ConfiguraServicos(services, configuration);
     }
     
     private static void ConfiguraDbContext(IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("PostgreSql") ??
-            throw new Exception(configuration.ConnectioString());
+            throw new Exception(configuration.ConnectionString());
 
         services.AddDbContext<SupplusDbContext>(opt =>
         {
@@ -32,10 +42,29 @@ public static class DIExtensions
         services.AddFluentMigratorCore().ConfigureRunner(opt =>
         {
             opt.AddPostgres()
-                .WithGlobalConnectionString(configuration.ConnectioString())
+                .WithGlobalConnectionString(configuration.ConnectionString())
                 .ScanIn(Assembly.Load("Supplus.Infrastructure"))
                 .For
                 .All();
         });
+    }
+
+    private static void ConfiguraRepositorios(IServiceCollection services)
+    {
+        services
+            .AddScoped(typeof(IRepository<>), typeof(BaseRepository<>))
+            .AddScoped<IUsuarioRepository, UsuarioRepository>()
+            .AddScoped<IUnitOfWork, UnitOfWork>();
+    }
+
+    private static void ConfiguraServicos(IServiceCollection services, IConfiguration configuration)
+    {      
+        var chaveAssinatura = configuration["Config:Jwt:ChaveAssinatura"] ??
+            throw new ArgumentException("Chave de assinatura JWT não encontrada na configuração.");
+
+        uint expiracaoEmMinutos = uint.Parse(configuration["Config:Jwt:ExpiracaoEmMinutos"] ?? 
+            throw new ArgumentException("Expiração em minutos não encontrada na configuração."));
+
+        services.AddScoped<IGeradorAccessToken>(_ => new GeradorTokenJwt(chaveAssinatura, expiracaoEmMinutos));
     }
 }

@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Backend/">
     <Project Path="src/Backend/Supplus.Api/Supplus.Api.csproj" />
@@ -11,7 +14,9 @@
     <Project Path="src/Shared/Supplus.Exceptions/Supplus.Exceptions.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Supplus.Api.Tests/Supplus.Api.Tests.csproj" Id="ce159deb-925b-439c-b770-90c9cf6462e8" />
     <Project Path="tests/Supplus.UseCases.Tests/Supplus.UseCases.Tests.csproj" />
+    <Project Path="tests/Supplus.Validators.Tests/Supplus.Validators.Tests.csproj" Id="3132ff25-eb37-4dd7-81af-107d4157cd74" />
     <Project Path="tests/UtilitariosCompartilhados.Tests/UtilitariosCompartilhados.Tests.csproj" />
   </Folder>
 </Solution>

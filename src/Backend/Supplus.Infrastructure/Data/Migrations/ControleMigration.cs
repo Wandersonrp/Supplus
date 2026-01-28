@@ -19,7 +19,7 @@ public static class ControleMigration
     public static void AplicarMigration(string connectionString, IServiceProvider serviceProvider)
     {
         CriarBanco(connectionString);
-        // AplicarMigration(serviceProvider);
+        AplicarMigration(serviceProvider);
     }
 
     /// <summary>
