@@ -25,5 +25,9 @@ jobs:
       - name: Compilar solucao
         run: dotnet build --no-restore --configuration Release
 
-      - name: Executar testes
+      - name: Executar testes     
+        env:
+          ConnectionStrings__PostgreSql: ${{ secrets.POSTGRESQL_CONNECTION_STRING }}
+          Config__Jwt__ChaveAssinatura: ${{ secrets.JWT_CHAVE_ASSINATURA}}
+          Config__Jwt__ExpiracaoEmMinutos: ${{ secrets.JWT_EXPIRACAO_EM_MINUTOS }}
         run: dotnet test --no-build --configuration Release --verbosity normal
