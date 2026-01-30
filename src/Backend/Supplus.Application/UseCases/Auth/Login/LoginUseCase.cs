@@ -4,7 +4,7 @@ using Supplus.Comunicacao.Responses.Auth;
 using Supplus.Comunicacao.Validators.Auth.Login;
 using Supplus.Domain.Entities;
 using Supplus.Domain.Repositories;
-using Supplus.Domain.Services;
+using Supplus.Domain.Services.Tokens;
 using Supplus.Exceptions;
 
 namespace Supplus.Application.UseCases.Auth.Login;

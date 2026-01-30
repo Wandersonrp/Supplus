@@ -1,6 +1,6 @@
 ﻿using Supplus.Domain.Enums;
 
-namespace Supplus.Domain.Services;
+namespace Supplus.Domain.Services.Tokens;
 
 public interface IGeradorAccessToken
 {

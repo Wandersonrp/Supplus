@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Supplus.Domain.Enums;
-using Supplus.Domain.Services;
+using Supplus.Domain.Services.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 

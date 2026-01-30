@@ -11,6 +11,7 @@ public class SupplusDbContext : DbContext
     }
 
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,6 +24,12 @@ public class SupplusDbContext : DbContext
 
             e.Property<string>("_senha")
                 .HasColumnName("Senha");
+        });
+
+        modelBuilder.Entity<RefreshToken>(e =>
+        {
+            e.Property(u => u.Id)
+                .HasColumnName("IdRefreshToken");
         });
             
         base.OnModelCreating(modelBuilder);

@@ -51,11 +51,8 @@ public class LoginUseCaseTest
         // Assert
         Assert.False(resultado.ESucesso);
         Assert.NotNull(resultado.Erro.Mensagens);
-        Assert.Single(resultado.Erro.Mensagens);
-        Assert.Collection(resultado.Erro.Mensagens, msg =>
-        {
-            Assert.Equal(string.Format(MensagensErro.CAMPO_OBRIGATORIO, "Senha"), msg);
-        });
+        var mensagem = Assert.Single(resultado.Erro.Mensagens);
+        Assert.Equal(string.Format(MensagensErro.CAMPO_OBRIGATORIO, "Senha"), mensagem);        
     }
 
 
