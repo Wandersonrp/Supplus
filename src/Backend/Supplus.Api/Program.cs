@@ -1,3 +1,4 @@
+using Supplus.Api.Middlewares;
 using Supplus.Application;
 using Supplus.Infrastructure;
 using Supplus.Infrastructure.Data.Migrations;
@@ -34,6 +35,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.MapControllers();
 

@@ -1,5 +1,4 @@
 ﻿using Supplus.Comunicacao.Requests.Auth;
-using Supplus.Exceptions;
 using Supplus.Exceptions.Mensagens;
 using System.Net;
 using System.Net.Http.Json;
@@ -56,16 +55,21 @@ public class LoginTest
         // Act
         var resultado = await _httpClient.PostAsJsonAsync(_rota, request);
 
-        var data = await resultado.Content.ReadAsStringAsync();
+        using var stream = await resultado.Content.ReadAsStreamAsync();
+        using var jsonDocument = JsonDocument.Parse(stream);
 
-        var jsonDocument = JsonDocument.Parse(data);
-
-        var mensagem = jsonDocument.RootElement.GetProperty("mensagem").GetString();        
-        var codigo = jsonDocument.RootElement.GetProperty("codigo").GetString();        
+        var mensagensElement = jsonDocument.RootElement.GetProperty("mensagens");
+        var mensagens = mensagensElement
+            .EnumerateArray()
+            .Select(msg => msg.GetString())
+            .ToList();                
 
         // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, resultado.StatusCode);
-        Assert.Equal(MensagensErro.CREDENCIAIS_INVALIDAS, mensagem);        
-        Assert.Equal(CodigosErro.CredencialInvalida, codigo);        
+        Assert.Single(mensagens);
+        Assert.Collection(mensagens, msg =>
+        {
+            Assert.Equal(MensagensErro.CREDENCIAIS_INVALIDAS, msg);
+        });        
     }
 }
