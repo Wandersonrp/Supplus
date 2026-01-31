@@ -41,7 +41,7 @@ public sealed record class ErroPadronizado(string Codigo, string? Mensagem = nul
         return new ErroPadronizado(ErroDeValidacao, Mensagens: mensagens);
     }
 
-    public static ErroPadronizado NaoAutorizadoErro() => new ErroPadronizado(NaoAutorizado);
+    public static ErroPadronizado NaoAutorizadoErro(string? mensagem = null) => new ErroPadronizado(NaoAutorizado, Mensagem: mensagem);
 
     public static ErroPadronizado ErroInternoServidorErro() => new ErroPadronizado(ErroInternoServidor, Mensagem: MensagensErro.ERRO_DESCONHECIDO);
 }

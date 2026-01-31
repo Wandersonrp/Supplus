@@ -3,10 +3,10 @@ using Supplus.Domain.Entities;
 
 namespace UtilitariosCompartilhados.Tests.Builders.Services;
 
-public class PasswordHasherBuilder
+public class PasswordHasherBuilder<TEntidade> where TEntidade : EntidadeBase
 {
-    public static IPasswordHasher<Usuario> Build()
+    public static IPasswordHasher<TEntidade> Build()
     {
-        return new PasswordHasher<Usuario>();
+        return new PasswordHasher<TEntidade>();
     }
 }

@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Supplus.Domain.Repositories;
-using Supplus.Domain.Services;
+using Supplus.Domain.Services.Tokens;
 using Supplus.Infrastructure.Data.Context;
 using Supplus.Infrastructure.Data.Repositories;
 using Supplus.Infrastructure.Extensions;
+using Supplus.Infrastructure.Services.Seguranca.Tokens;
 using Supplus.Infrastructure.Services.Seguranca.Tokens.Jwt;
 using System.Reflection;
 
@@ -54,7 +55,8 @@ public static class DIExtensions
         services
             .AddScoped(typeof(IRepository<>), typeof(BaseRepository<>))
             .AddScoped<IUsuarioRepository, UsuarioRepository>()
-            .AddScoped<IUnitOfWork, UnitOfWork>();
+            .AddScoped<IUnitOfWork, UnitOfWork>()
+            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
     }
 
     private static void ConfiguraServicos(IServiceCollection services, IConfiguration configuration)
@@ -65,6 +67,7 @@ public static class DIExtensions
         uint expiracaoEmMinutos = uint.Parse(configuration["Config:Jwt:ExpiracaoEmMinutos"] ?? 
             throw new ArgumentException("Expiração em minutos não encontrada na configuração."));
 
-        services.AddScoped<IGeradorAccessToken>(_ => new GeradorTokenJwt(chaveAssinatura, expiracaoEmMinutos));
+        services
+            .AddScoped<IGeradorAccessToken>(_ => new GeradorTokenJwt(chaveAssinatura, expiracaoEmMinutos));
     }
 }

@@ -22,7 +22,7 @@ public class LoginUseCaseTest
         var usuario = new Usuario(request.Email!, nome: "John", sobrenome: "Doe", 1, role: Role.Administrador);
 
         // Atribui a senha hasheada ao usuário
-        usuario.AtribuirSenha(PasswordHasherBuilder.Build().HashPassword(usuario, request.Senha!));
+        usuario.AtribuirSenha(PasswordHasherBuilder<Usuario>.Build().HashPassword(usuario, request.Senha!));
 
         var sut = CriarUseCase(usuario);
 
@@ -51,26 +51,29 @@ public class LoginUseCaseTest
         // Assert
         Assert.False(resultado.ESucesso);
         Assert.NotNull(resultado.Erro.Mensagens);
-        Assert.Single(resultado.Erro.Mensagens);
-        Assert.Collection(resultado.Erro.Mensagens, msg =>
-        {
-            Assert.Equal(string.Format(MensagensErro.CAMPO_OBRIGATORIO, "Senha"), msg);
-        });
+        var mensagem = Assert.Single(resultado.Erro.Mensagens);
+        Assert.Equal(string.Format(MensagensErro.CAMPO_OBRIGATORIO, "Senha"), mensagem);        
     }
 
 
     public static LoginUseCase CriarUseCase(Usuario? usuario = null)
     {
         var usuarioRepository = new UsuarioRepositoryBuilder();
-        var passwordHasher = PasswordHasherBuilder.Build();
+        var passwordHasher = PasswordHasherBuilder<Usuario>.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
         var geradorAccessToken = new GeradorTokenJwtBuilder();
+        var refreshTokenRepository = new RepositoryBuilder<RefreshToken>();
 
         if (usuario is not null)
             usuarioRepository.ObterPorEmailAsync(usuario);
 
         geradorAccessToken.Gerar();
 
-        return new LoginUseCase(usuarioRepository.Build(), passwordHasher, unitOfWork, geradorAccessToken.Build());
+        return new LoginUseCase(
+            usuarioRepository.Build(), 
+            passwordHasher, 
+            unitOfWork, 
+            geradorAccessToken.Build(), 
+            refreshTokenRepository.Build());
     }
 }

@@ -60,8 +60,8 @@ public class LoginValidatorTest
 
         // Assert
         Assert.False(resultado.IsValid);
-        Assert.Single(resultado.Errors);
-        Assert.Equal(string.Format(MensagensErro.CAMPO_OBRIGATORIO, "Email"), resultado.Errors[0].ErrorMessage);
+        var validationFailure = Assert.Single(resultado.Errors);
+        Assert.Equal(string.Format(MensagensErro.CAMPO_OBRIGATORIO, "Email"), validationFailure.ErrorMessage);
     }
 
     [Fact]
@@ -80,8 +80,8 @@ public class LoginValidatorTest
 
         // Assert
         Assert.False(resultado.IsValid);
-        Assert.Single(resultado.Errors);
-        Assert.Equal(string.Format(MensagensErro.CAMPO_OBRIGATORIO, "Senha"), resultado.Errors[0].ErrorMessage);
+        var validationFailure = Assert.Single(resultado.Errors);
+        Assert.Equal(string.Format(MensagensErro.CAMPO_OBRIGATORIO, "Senha"), validationFailure.ErrorMessage);
     }
 
     [Fact]
@@ -100,8 +100,8 @@ public class LoginValidatorTest
 
         // Assert
         Assert.False(resultado.IsValid);
-        Assert.Single(resultado.Errors);
-        Assert.Equal(string.Format(MensagensErro.TAMANHO_MAXIMO_CAMPO, "Senha", 20), resultado.Errors[0].ErrorMessage);
+        var validationFailure = Assert.Single(resultado.Errors);
+        Assert.Equal(string.Format(MensagensErro.TAMANHO_MAXIMO_CAMPO, "Senha", 20), validationFailure.ErrorMessage);
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public class LoginValidatorTest
 
         // Assert
         Assert.False(resultado.IsValid);
-        Assert.Single(resultado.Errors);
-        Assert.Equal(string.Format(MensagensErro.TAMANHO_MINIMO_CAMPO, "Senha", 8), resultado.Errors[0].ErrorMessage);
+        var validationFailure = Assert.Single(resultado.Errors);
+        Assert.Equal(string.Format(MensagensErro.TAMANHO_MINIMO_CAMPO, "Senha", 8), validationFailure.ErrorMessage);
     }
 }

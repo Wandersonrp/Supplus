@@ -1,6 +1,6 @@
 ﻿using Moq;
 using Supplus.Domain.Enums;
-using Supplus.Domain.Services;
+using Supplus.Domain.Services.Tokens;
 
 namespace UtilitariosCompartilhados.Tests.Builders.Services;
 

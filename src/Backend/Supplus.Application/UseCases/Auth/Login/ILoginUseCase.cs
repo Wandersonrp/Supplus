@@ -6,5 +6,5 @@ namespace Supplus.Application.UseCases.Auth.Login;
 
 public interface ILoginUseCase
 {
-    Task<ResultadoPersonalizado<ResponseLoginJson>> Executar(RequestLoginJson request);
+    Task<ResultadoPersonalizado<ResponseLoginJson>> Executar(RequestLoginJson request, string? ip = null, string? dispositivoInfo = null);
 }
