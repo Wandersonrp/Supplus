@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Supplus.Application.UseCases.Auth.Login;
-using Supplus.Domain.Entities;
+using Supplus.Application.UseCases.Auth.RereshTokens;
 
 namespace Supplus.Application;
 
@@ -15,12 +15,13 @@ public static class DIExtensions
 
     private static void ConfiguraUseCases(IServiceCollection services)
     {
-        services.AddScoped<ILoginUseCase, LoginUseCase>();
+        services
+            .AddScoped<ILoginUseCase, LoginUseCase>()
+            .AddScoped<IGerarRefreshTokenUseCase, GerarRefreshTokenUseCase>();
     }
 
     private static void ConfiguraServices(IServiceCollection services)
     {
-        //services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
         services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
     }
 }

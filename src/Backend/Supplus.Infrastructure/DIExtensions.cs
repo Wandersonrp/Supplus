@@ -55,7 +55,8 @@ public static class DIExtensions
         services
             .AddScoped(typeof(IRepository<>), typeof(BaseRepository<>))
             .AddScoped<IUsuarioRepository, UsuarioRepository>()
-            .AddScoped<IUnitOfWork, UnitOfWork>();
+            .AddScoped<IUnitOfWork, UnitOfWork>()
+            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
     }
 
     private static void ConfiguraServicos(IServiceCollection services, IConfiguration configuration)
