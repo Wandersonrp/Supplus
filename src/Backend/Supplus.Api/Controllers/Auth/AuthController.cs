@@ -20,19 +20,18 @@ public class AuthController : BaseController
 
     [HttpPost("refresh-token")]
     public async Task<IActionResult> GerarRefreshTokenAsync(
-        [FromServices] IGerarRefreshTokenUseCase useCase, 
-        HttpContext httpContext, 
+        [FromServices] IGerarRefreshTokenUseCase useCase,          
         CancellationToken token)
     {
         (string? ip, string userAgent) = ObterInformacoesDispositivo();
 
-        var request = new RequestNovoTokenJson(ObterRefreshToken(httpContext), ip ?? string.Empty, userAgent);
+        var request = new RequestNovoTokenJson(ObterRefreshToken(), ip ?? string.Empty, userAgent);
         var resultado = await useCase.Executar(request, token);
 
         if(resultado.Falhou)
             return TratarFalha(resultado);
 
-        httpContext.Response.Cookies.Append("refresh_token", resultado.Valor.RefreshToken, new CookieOptions
+        HttpContext.Response.Cookies.Append("refresh_token", resultado.Valor.RefreshToken, new CookieOptions
         {
             HttpOnly = true,
             Secure = true,

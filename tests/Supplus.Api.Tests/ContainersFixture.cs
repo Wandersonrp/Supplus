@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Supplus.Infrastructure.Data.Context;
-using Testcontainers.PostgreSql;
+﻿using Testcontainers.PostgreSql;
 
 namespace Supplus.Api.Tests;
 

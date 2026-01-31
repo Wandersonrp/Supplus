@@ -37,11 +37,11 @@ public abstract class BaseController : ControllerBase
         return (ip, userAgent);
     }
 
-    protected string ObterRefreshToken(HttpContext httpContext)
+    protected string ObterRefreshToken()
     {
         var refreshToken = string.Empty;
 
-        if (httpContext.Request.Cookies.TryGetValue("refresh_token", out var resultado))
+        if (HttpContext.Request.Cookies.TryGetValue("refresh_token", out var resultado))
             refreshToken = resultado;
 
         return refreshToken;

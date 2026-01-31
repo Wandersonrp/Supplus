@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true;
