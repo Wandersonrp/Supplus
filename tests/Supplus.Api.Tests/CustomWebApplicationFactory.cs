@@ -59,7 +59,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
             if (!dbContext.Usuarios.Any())
             {
                 var usuario = new Usuario(email: "admin@admin.com", nome: "Admin", sobrenome: "Admin", 1, role: Role.Administrador);
-                usuario.AtribuirSenha(hasher.HashPassword(usuario, password: "SenhaForte123!"));
+                usuario.AtribuirSenha(hasher.HashPassword(usuario, password: "SenhaForte123!"));                
 
                 dbContext.Usuarios.Add(usuario);
                 dbContext.SaveChanges();

@@ -25,4 +25,11 @@ public abstract class BaseController : ControllerBase
 
         return objectResult(resultado.Valor);
     }
+
+    protected (string? ip, string userAgent) ObterInformacoesDispositivo()
+    {
+        var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+        var userAgent = HttpContext.Request.Headers.UserAgent.ToString();        
+        return (ip, userAgent);
+    }
 }

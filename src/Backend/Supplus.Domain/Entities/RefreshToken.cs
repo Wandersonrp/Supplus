@@ -1,6 +1,6 @@
 ﻿namespace Supplus.Domain.Entities;
 
-public class RefreshToken : EntidadeBase
+public sealed class RefreshToken : EntidadeBase
 {
     /// <summary>
     /// Valor do Refresh Token   
@@ -38,7 +38,7 @@ public class RefreshToken : EntidadeBase
 
     private RefreshToken() { }
 
-    public RefreshToken(long idUsuario, string dispositivoInfo, string ip) : this()
+    public RefreshToken(long idUsuario, string dispositivoInfo, string ip) : base(idUsuario)
     {
         Token = Gerar();
         IdUsuario = idUsuario;
@@ -46,7 +46,7 @@ public class RefreshToken : EntidadeBase
         DataExpiracao = DateTime.UtcNow.AddHours(RegrasConstants.EXPIRACAO_REFRESH_TOKEN_HORAS);
         FoiRevogado = false;
         FoiUsado = false;
-        Ip = ip;
+        Ip = ip;        
     }
 
     /// <summary>

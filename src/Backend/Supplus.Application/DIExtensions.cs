@@ -20,6 +20,7 @@ public static class DIExtensions
 
     private static void ConfiguraServices(IServiceCollection services)
     {
-        services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
+        //services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
+        services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
     }
 }

@@ -15,20 +15,23 @@ public class LoginUseCase : BaseUseCase<RequestLoginJson, LoginValidator>, ILogi
     private readonly IPasswordHasher<Usuario> _passwordHasher;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IGeradorAccessToken _geradorAccessToken;
+    private readonly IRepository<RefreshToken> _refreshTokenRepository;
 
     public LoginUseCase(
         IUsuarioRepository usuarioRepository, 
         IPasswordHasher<Usuario> passwordHasher, 
         IUnitOfWork unitOfWork, 
-        IGeradorAccessToken geradorAccessToken)
+        IGeradorAccessToken geradorAccessToken, 
+        IRepository<RefreshToken> refreshTokenRepository)
     {
         _usuarioRepository = usuarioRepository;
         _passwordHasher = passwordHasher;
         _unitOfWork = unitOfWork;
         _geradorAccessToken = geradorAccessToken;
+        _refreshTokenRepository = refreshTokenRepository;
     }
      
-    public async Task<ResultadoPersonalizado<ResponseLoginJson>> Executar(RequestLoginJson request)
+    public async Task<ResultadoPersonalizado<ResponseLoginJson>> Executar(RequestLoginJson request, string? ip = null, string? dispositivoInfo = null)
     {        
         var resultado = Validar(request);
 
@@ -45,14 +48,15 @@ public class LoginUseCase : BaseUseCase<RequestLoginJson, LoginValidator>, ILogi
         if(resultadoSenha == PasswordVerificationResult.Failed)
             return ResultadoPersonalizado<ResponseLoginJson>.Falha(ErroPadronizado.CredencialInvalidaErro());                
 
-        var accessToken = _geradorAccessToken.Gerar(usuario.IdExterno, usuario.Role);
+        var accessToken = _geradorAccessToken.Gerar(usuario.IdExterno, usuario.Role);        
 
-        // Simula a geração de tokens
-        var refreshToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+        var refreshToken = new RefreshToken(usuario.Id, dispositivoInfo ?? string.Empty, ip ?? string.Empty);
 
-        var token = new ResponseTokenJson(accessToken, refreshToken);
-
+        await _refreshTokenRepository.AdicionarAsync(refreshToken);
+        
         await _unitOfWork.CommitAsync();
+
+        var token = new ResponseTokenJson(accessToken, refreshToken.Token);
 
         return ResultadoPersonalizado<ResponseLoginJson>.Sucesso(new ResponseLoginJson(token));
     }

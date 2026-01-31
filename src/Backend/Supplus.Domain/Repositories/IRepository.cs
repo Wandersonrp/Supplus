@@ -25,5 +25,7 @@ public interface IRepository<TEntidade> where TEntidade : EntidadeBase
     /// <param name="id">Identificador interno da entidade.</param>
     /// <returns>Instância da entidade ou <c>null</c> se não existir.</returns>
     Task<TEntidade?> ObterPorIdAsync(long id);
+
+    Task AdicionarAsync(TEntidade entidade);
 }
 

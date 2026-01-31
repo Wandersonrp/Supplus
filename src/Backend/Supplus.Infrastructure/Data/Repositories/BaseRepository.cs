@@ -14,6 +14,11 @@ public class BaseRepository<TEntidade> : IRepository<TEntidade> where TEntidade 
         _dbContext = dbContext;
     }
 
+    public async Task AdicionarAsync(TEntidade entidade)
+    {
+        await _dbContext.Set<TEntidade>().AddAsync(entidade);
+    }
+
     public async Task<TEntidade?> ObterPorIdAsync(long id)
     {
         return await _dbContext

@@ -24,6 +24,10 @@ public class SupplusDbContext : DbContext
 
             e.Property<string>("_senha")
                 .HasColumnName("Senha");
+
+            e.HasMany(u => u.RefreshTokens)
+                .WithOne(rt => rt.Usuario)
+                .HasForeignKey(rt => rt.IdUsuario);
         });
 
         modelBuilder.Entity<RefreshToken>(e =>
