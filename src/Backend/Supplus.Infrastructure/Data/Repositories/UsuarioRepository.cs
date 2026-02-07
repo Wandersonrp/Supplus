@@ -14,6 +14,14 @@ public sealed class UsuarioRepository : BaseRepository<Usuario>, IUsuarioReposit
         _dbContext = dbContext;
     }
 
+    public async Task<bool> ExisteUsuarioComIdentificadorExternoAsync(Guid identificador)
+    {
+        return await _dbContext
+            .Usuarios
+            .AsNoTracking()
+            .AnyAsync(u => u.IdExterno == identificador);
+    }
+
     public async Task<Usuario?> ObterPorEmailAsync(string email)
     {
         return await _dbContext
