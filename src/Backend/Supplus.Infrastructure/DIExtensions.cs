@@ -68,6 +68,7 @@ public static class DIExtensions
             throw new ArgumentException("Expiração em minutos não encontrada na configuração."));
 
         services
-            .AddScoped<IGeradorAccessToken>(_ => new GeradorTokenJwt(chaveAssinatura, expiracaoEmMinutos));
+            .AddScoped<IGeradorAccessToken>(_ => new GeradorTokenJwt(chaveAssinatura, expiracaoEmMinutos))
+            .AddScoped<IValidadorAccessToken>(_ => new ValidadorTokenJwt(chaveAssinatura));
     }
 }
