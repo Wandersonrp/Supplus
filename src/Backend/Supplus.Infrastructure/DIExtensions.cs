@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Supplus.Domain.Repositories;
+using Supplus.Domain.Services;
 using Supplus.Domain.Services.Tokens;
 using Supplus.Infrastructure.Data.Context;
 using Supplus.Infrastructure.Data.Repositories;
 using Supplus.Infrastructure.Extensions;
+using Supplus.Infrastructure.Services;
 using Supplus.Infrastructure.Services.Seguranca.Tokens;
 using Supplus.Infrastructure.Services.Seguranca.Tokens.Jwt;
 using System.Reflection;
@@ -69,6 +71,7 @@ public static class DIExtensions
 
         services
             .AddScoped<IGeradorAccessToken>(_ => new GeradorTokenJwt(chaveAssinatura, expiracaoEmMinutos))
-            .AddScoped<IValidadorAccessToken>(_ => new ValidadorTokenJwt(chaveAssinatura));
+            .AddScoped<IValidadorAccessToken>(_ => new ValidadorTokenJwt(chaveAssinatura))
+            .AddScoped<IUsuarioAutenticado, UsuarioAutenticadoService>();
     }
 }
