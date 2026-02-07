@@ -97,6 +97,15 @@ namespace Supplus.Exceptions.Mensagens {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Usuário não possui permissão para acessar o recurso..
+        /// </summary>
+        public static string PERMISSOES_INVALIDAS {
+            get {
+                return ResourceManager.GetString("PERMISSOES_INVALIDAS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O campo {0} deve ter no máximo {1} caracteres..
         /// </summary>
         public static string TAMANHO_MAXIMO_CAMPO {
@@ -111,6 +120,15 @@ namespace Supplus.Exceptions.Mensagens {
         public static string TAMANHO_MINIMO_CAMPO {
             get {
                 return ResourceManager.GetString("TAMANHO_MINIMO_CAMPO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Token inválido..
+        /// </summary>
+        public static string TOKEN_INVALIDO {
+            get {
+                return ResourceManager.GetString("TOKEN_INVALIDO", resourceCulture);
             }
         }
     }
