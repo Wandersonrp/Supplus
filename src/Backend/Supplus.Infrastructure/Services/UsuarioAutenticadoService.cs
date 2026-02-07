@@ -19,6 +19,17 @@ public class UsuarioAutenticadoService : IUsuarioAutenticado
         _tokenProvider = tokenProvider;
     }
 
+    /// <summary>
+    /// Obtém de forma assíncrona os dados do usuário autenticado a partir do token JWT presente na requisição.
+    /// </summary>
+    /// <remarks>
+    /// O método extrai o token via <c>_tokenProvider</c>, interpreta-o com <c>JwtSecurityTokenHandler</c>,
+    /// recupera o identificador único do usuário dos claims e consulta o banco de dados para retornar
+    /// um objeto <see cref="UsuarioAutenticado"/> contendo Id, e-mail e perfil de acesso.
+    /// </remarks>
+    /// <returns>
+    /// Uma tarefa que resulta em um <see cref="UsuarioAutenticado"/> representando o usuário autenticado.
+    /// </returns>
     public async Task<UsuarioAutenticado> ObterUsuarioAutenticadoAsync()
     {
         var token  = _tokenProvider.ObterToken();
