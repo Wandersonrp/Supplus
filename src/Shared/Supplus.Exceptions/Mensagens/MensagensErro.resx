@@ -129,10 +129,16 @@
   <data name="ERRO_DESCONHECIDO" xml:space="preserve">
     <value>Erro desconhecido.</value>
   </data>
+  <data name="PERMISSOES_INVALIDAS" xml:space="preserve">
+    <value>Usuário não possui permissão para acessar o recurso.</value>
+  </data>
   <data name="TAMANHO_MAXIMO_CAMPO" xml:space="preserve">
     <value>O campo {0} deve ter no máximo {1} caracteres.</value>
   </data>
   <data name="TAMANHO_MINIMO_CAMPO" xml:space="preserve">
     <value>O campo {0} de ter no mínimo {1} caracteres.</value>
+  </data>
+  <data name="TOKEN_INVALIDO" xml:space="preserve">
+    <value>Token inválido.</value>
   </data>
 </root>

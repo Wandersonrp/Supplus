@@ -1,5 +1,7 @@
 using Supplus.Api.Middlewares;
+using Supplus.Api.Tokens;
 using Supplus.Application;
+using Supplus.Domain.Services.Tokens;
 using Supplus.Infrastructure;
 using Supplus.Infrastructure.Data.Migrations;
 using Supplus.Infrastructure.Extensions;
@@ -9,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddRouting(options =>
