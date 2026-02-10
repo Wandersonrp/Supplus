@@ -70,6 +70,15 @@ namespace Supplus.Exceptions.Mensagens {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {0} já cadastrado na base de dados..
+        /// </summary>
+        public static string CONFLITO {
+            get {
+                return ResourceManager.GetString("CONFLITO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail e/ou senha incorretos..
         /// </summary>
         public static string CREDENCIAIS_INVALIDAS {
@@ -129,6 +138,15 @@ namespace Supplus.Exceptions.Mensagens {
         public static string TOKEN_INVALIDO {
             get {
                 return ResourceManager.GetString("TOKEN_INVALIDO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Valor do {0} inválido..
+        /// </summary>
+        public static string VALOR_INVALIDO {
+            get {
+                return ResourceManager.GetString("VALOR_INVALIDO", resourceCulture);
             }
         }
     }

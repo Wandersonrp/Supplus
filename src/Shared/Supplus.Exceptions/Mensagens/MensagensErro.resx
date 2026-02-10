@@ -120,6 +120,9 @@
   <data name="CAMPO_OBRIGATORIO" xml:space="preserve">
     <value>O campo {0} é obrigatório.</value>
   </data>
+  <data name="CONFLITO" xml:space="preserve">
+    <value>{0} já cadastrado na base de dados.</value>
+  </data>
   <data name="CREDENCIAIS_INVALIDAS" xml:space="preserve">
     <value>E-mail e/ou senha incorretos.</value>
   </data>
@@ -140,5 +143,8 @@
   </data>
   <data name="TOKEN_INVALIDO" xml:space="preserve">
     <value>Token inválido.</value>
+  </data>
+  <data name="VALOR_INVALIDO" xml:space="preserve">
+    <value>Valor do {0} inválido.</value>
   </data>
 </root>
