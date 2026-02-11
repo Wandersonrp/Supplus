@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Supplus.Api.Attributes;
+using Supplus.Api.Requirements;
 using Supplus.Application.UseCases.Usuarios.Registrar;
 using Supplus.Comunicacao.Requests.Usuarios;
 using Supplus.Comunicacao.Responses.Usuarios;
@@ -10,7 +12,7 @@ public class UsuariosController : BaseController
 {
     [HttpPost]
     [UsuarioAutenticado]
-    // TODO: ADICIONAR A POLICY DE AUTORIZAÇÃO PARA PERMITIR APENAS USUÁRIOS COM ROLE DE ADMINISTRADOR E SUPORTE
+    [Authorize(Policies.PodeRegistrarUsuario)]
     [ProducesResponseType(typeof(ResponseUsuarioJson), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -18,9 +20,10 @@ public class UsuariosController : BaseController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> RegistrarUsuario(
         [FromBody] RequestRegistrarUsuarioJson request, 
-        [FromServices] IRegistrarUsuarioUseCase useCase)
+        [FromServices] IRegistrarUsuarioUseCase useCase, 
+        CancellationToken token)
     {
-        var resultado = await useCase.Executar(request, CancellationToken.None);
+        var resultado = await useCase.Executar(request, token);
         
         if (resultado.Falhou)
             return TratarFalha(resultado);
