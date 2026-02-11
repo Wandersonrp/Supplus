@@ -106,6 +106,15 @@ namespace Supplus.Exceptions.Mensagens {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Operação cancelada pelo usuário..
+        /// </summary>
+        public static string OPERACAO_CANCELADA {
+            get {
+                return ResourceManager.GetString("OPERACAO_CANCELADA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Usuário não possui permissão para acessar o recurso..
         /// </summary>
         public static string PERMISSOES_INVALIDAS {
