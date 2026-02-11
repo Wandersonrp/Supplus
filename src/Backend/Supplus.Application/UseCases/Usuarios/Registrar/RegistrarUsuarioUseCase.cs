@@ -25,6 +25,12 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
 
     public async Task<ResultadoPersonalizado<ResponseUsuarioJson>> Executar(RequestRegistrarUsuarioJson request, CancellationToken token)
     {
+        var usuarioAutenticado = await _usuarioAutenticado.ObterUsuarioAutenticadoAsync();
+
+        // Agente de Suporte só pode criar usuários comuns
+        if (!usuarioAutenticado.PodeRegistrarUsuario((Role)request.Role))
+            return ResultadoPersonalizado<ResponseUsuarioJson>.Falha(ErroPadronizado.NaoAutorizadoErro(MensagensErro.PERMISSOES_INVALIDAS)); 
+
         var resultado = Validar(request);
 
         if (resultado != ErroPadronizado.Nenhum)
@@ -34,9 +40,7 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
 
         if (existeUsuario)
             return ResultadoPersonalizado<ResponseUsuarioJson>.Falha(ErroPadronizado.ConflitoErro(String.Format(MensagensErro.CONFLITO, "Usuário")));
-
-        var usuarioAutenticado = await _usuarioAutenticado.ObterUsuarioAutenticadoAsync();
-
+        
         var usuario = new Usuario(
             request.Email, 
             request.PrimeiroNome, 
