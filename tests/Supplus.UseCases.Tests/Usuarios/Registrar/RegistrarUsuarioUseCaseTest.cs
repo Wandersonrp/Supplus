@@ -25,7 +25,7 @@ public class RegistrarUsuarioUseCaseTest
         // Usuario Admin
         var usuarioAuenticado = new UsuarioAutenticado(Id: 1, Email: "admin@admin.com", Role: Domain.Enums.Role.Administrador);
 
-        var sut = CriarUseCase(usuarioAuenticado);
+        var sut = CriarUseCase(usuarioAuenticado, CancellationToken.None);
 
         // Act
         var resultado = await sut.Executar(request, CancellationToken.None);
@@ -40,7 +40,7 @@ public class RegistrarUsuarioUseCaseTest
         Assert.Equal(role, resultado.Valor.Role);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Não deve ser possível registrar usuário com e-mail que já existe.")]
     public async Task Nao_Deve_Registrar_Usuario_Com_Email_Existente()
     {
         // Arrange
@@ -57,7 +57,7 @@ public class RegistrarUsuarioUseCaseTest
         // Usuario que já existe no banco
         var usuarioExistente = new Usuario(email, primeiroNome, sobrenome, usuarioAuenticado.Id);
 
-        var sut = CriarUseCase(usuarioAuenticado, usuarioExistente);
+        var sut = CriarUseCase(usuarioAuenticado, CancellationToken.None, usuarioExistente);
 
         // Act
         var resultado = await sut.Executar(request, CancellationToken.None);
@@ -68,14 +68,43 @@ public class RegistrarUsuarioUseCaseTest
         Assert.Equal(String.Format(MensagensErro.CONFLITO, "Usuário"), resultado.Erro.Mensagem);        
     }
 
-    public static RegistrarUsuarioUseCase CriarUseCase(UsuarioAutenticado usuarioAutenticado, Usuario? usuario = null)
+    [Theory(DisplayName = "Agente de Suporte não deve poder registrar usuários do Administrador e Suporte.")]
+    [InlineData(Role.AgenteSuporte)]
+    [InlineData(Role.Administrador)]
+    public async Task Suporte_Nao_Deve_Poder_Registrar_Usuario_Admin_E_Suporte(Role role)
+    {
+        // Arrange
+        var primeiroNome = "John";
+        var sobrenome = "Doe";
+        var email = "johndoe@example.com";        
+
+        var request = new RequestRegistrarUsuarioJson(primeiroNome, sobrenome, email, role);
+
+        // Usuario Suporte
+        var usuarioAuenticado = new UsuarioAutenticado(Id: 2, Email: "suporte@suporte.com", Role: Domain.Enums.Role.AgenteSuporte);        
+
+        var sut = CriarUseCase(usuarioAuenticado, CancellationToken.None);
+
+        // Act
+        var resultado = await sut.Executar(request, CancellationToken.None);
+
+        // Assert                    
+        Assert.True(resultado.Falhou);
+        Assert.NotNull(resultado.Erro.Mensagem);
+        Assert.Equal(MensagensErro.PERMISSOES_INVALIDAS, resultado.Erro.Mensagem);
+    }   
+
+    public static RegistrarUsuarioUseCase CriarUseCase(
+        UsuarioAutenticado usuarioAutenticado, 
+        CancellationToken token, 
+        Usuario? usuario = null)
     {
         var usuarioRepository = new UsuarioRepositoryBuilder();
         var unitOfWork = UnitOfWorkBuilder.Build();
         var usuarioAutenticadoService = new UsuarioAutenticadoBuilder();
 
         if (usuario is not null)
-            usuarioRepository.ExisteUsuarioComEmailAsync(usuario.Email);
+            usuarioRepository.ExisteUsuarioComEmailAsync(usuario.Email, token);
 
         usuarioAutenticadoService.ObterUsuarioAutenticadoAsync(usuarioAutenticado);
 
