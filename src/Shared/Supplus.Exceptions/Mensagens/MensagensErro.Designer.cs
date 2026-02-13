@@ -151,7 +151,7 @@ namespace Supplus.Exceptions.Mensagens {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Valor do {0} inválido..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Valor do(a) {0} inválido(a)..
         /// </summary>
         public static string VALOR_INVALIDO {
             get {
