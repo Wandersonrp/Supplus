@@ -2,12 +2,9 @@
 using Supplus.Comunicacao.Requests.Auth;
 using Supplus.Comunicacao.Requests.Usuarios;
 using Supplus.Comunicacao.Responses.Auth;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
 
 namespace Supplus.Api.Tests.Usuarios;
 
@@ -51,5 +48,5 @@ public class RegistrarUsuarioTest
 
         // Verfica se o status code é Created (201)
         Assert.Equal(HttpStatusCode.Created, resultado.StatusCode);        
-    }
+    }    
 }
