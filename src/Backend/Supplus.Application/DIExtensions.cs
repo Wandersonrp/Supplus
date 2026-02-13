@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Supplus.Application.UseCases.Auth.Login;
 using Supplus.Application.UseCases.Auth.RereshTokens;
+using Supplus.Application.UseCases.Usuarios.Registrar;
 
 namespace Supplus.Application;
 
@@ -17,7 +18,8 @@ public static class DIExtensions
     {
         services
             .AddScoped<ILoginUseCase, LoginUseCase>()
-            .AddScoped<IGerarRefreshTokenUseCase, GerarRefreshTokenUseCase>();
+            .AddScoped<IGerarRefreshTokenUseCase, GerarRefreshTokenUseCase>()
+            .AddScoped<IRegistrarUsuarioUseCase, RegistrarUsuarioUseCase>();
     }
 
     private static void ConfiguraServices(IServiceCollection services)

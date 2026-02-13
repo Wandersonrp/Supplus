@@ -120,6 +120,9 @@
   <data name="CAMPO_OBRIGATORIO" xml:space="preserve">
     <value>O campo {0} é obrigatório.</value>
   </data>
+  <data name="CONFLITO" xml:space="preserve">
+    <value>{0} já cadastrado na base de dados.</value>
+  </data>
   <data name="CREDENCIAIS_INVALIDAS" xml:space="preserve">
     <value>E-mail e/ou senha incorretos.</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="ERRO_DESCONHECIDO" xml:space="preserve">
     <value>Erro desconhecido.</value>
+  </data>
+  <data name="OPERACAO_CANCELADA" xml:space="preserve">
+    <value>Operação cancelada pelo usuário.</value>
   </data>
   <data name="PERMISSOES_INVALIDAS" xml:space="preserve">
     <value>Usuário não possui permissão para acessar o recurso.</value>
@@ -140,5 +146,8 @@
   </data>
   <data name="TOKEN_INVALIDO" xml:space="preserve">
     <value>Token inválido.</value>
+  </data>
+  <data name="VALOR_INVALIDO" xml:space="preserve">
+    <value>Valor do(a) {0} inválido(a).</value>
   </data>
 </root>

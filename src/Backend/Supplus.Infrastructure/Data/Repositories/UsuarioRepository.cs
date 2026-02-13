@@ -14,6 +14,14 @@ public sealed class UsuarioRepository : BaseRepository<Usuario>, IUsuarioReposit
         _dbContext = dbContext;
     }
 
+    public async Task<bool> ExisteUsuarioComEmailAsync(string email, CancellationToken token)
+    {
+        return await _dbContext
+            .Usuarios
+            .AsNoTracking()
+            .AnyAsync(u => u.Email == email, token);
+    }
+
     public async Task<bool> ExisteUsuarioComIdentificadorExternoAsync(Guid identificador)
     {
         return await _dbContext
