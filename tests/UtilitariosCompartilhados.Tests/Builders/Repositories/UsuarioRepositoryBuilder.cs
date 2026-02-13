@@ -18,9 +18,9 @@ public class UsuarioRepositoryBuilder
         _mock.Setup(r => r.ObterPorEmailAsync(usuario.Email)).ReturnsAsync(usuario);
     }
 
-    public void ExisteUsuarioComEmailAsync(string email)
+    public void ExisteUsuarioComEmailAsync(string email, CancellationToken token)
     {
-        _mock.Setup(r => r.ExisteUsuarioComEmailAsync(email)).ReturnsAsync(true);
+        _mock.Setup(r => r.ExisteUsuarioComEmailAsync(email, token)).ReturnsAsync(true);
     }
 
     public IUsuarioRepository Build() => _mock.Object;
