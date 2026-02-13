@@ -148,6 +148,6 @@
     <value>Token inválido.</value>
   </data>
   <data name="VALOR_INVALIDO" xml:space="preserve">
-    <value>Valor do {0} inválido.</value>
+    <value>Valor do(a) {0} inválido(a).</value>
   </data>
 </root>
