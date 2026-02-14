@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Supplus.Api.Attributes;
 using Supplus.Api.Requirements;
+using Supplus.Application.UseCases.Usuarios.Perfil;
 using Supplus.Application.UseCases.Usuarios.Registrar;
 using Supplus.Comunicacao.Requests.Usuarios;
 using Supplus.Comunicacao.Responses.Usuarios;
@@ -29,5 +30,14 @@ public class UsuariosController : BaseController
             return TratarFalha(resultado);
 
         return CreatedAtAction(nameof(RegistrarUsuario), resultado.Valor);
+    }
+
+    [HttpGet]
+    [UsuarioAutenticado]
+    [ProducesResponseType(typeof(ResponseUsuarioJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ObterPerfil([FromServices] IObterPerfilUseCase useCase, CancellationToken token)
+    {
+        var resultado = await useCase.Executar(token);
+        return HandlerResponse(resultado, Ok);
     }
 }
