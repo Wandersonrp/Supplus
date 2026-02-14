@@ -19,5 +19,5 @@ public interface IUsuarioAutenticado
     /// Uma tarefa que resulta em um objeto <see cref="UsuarioAutenticado"/> contendo
     /// o identificador, e-mail e a role do usuário autenticado.
     /// </returns>
-    Task<UsuarioAutenticado> ObterUsuarioAutenticadoAsync();
+    Task<UsuarioAutenticado> ObterUsuarioAutenticadoAsync(CancellationToken token);
 }

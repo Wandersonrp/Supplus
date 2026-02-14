@@ -13,7 +13,10 @@ namespace Supplus.Domain.Models;
 /// <param name="Id">Identificador único do usuário no domínio.</param>
 /// <param name="Email">Endereço de e-mail do usuário autenticado.</param>
 /// <param name="Role">Role do usuário autenticado.</param>
-public record UsuarioAutenticado(long Id, string Email, Role Role)
+/// <param name="PrimeiroNome">Primeiro nome do usuário autenticado.</param>
+/// <param name="Sobrenome">Sobrenome do usuário autenticado.</param>
+/// <param name="IdExterno">Identificador externo do usuário autenticado.</param>
+public record UsuarioAutenticado(long Id, string Email, Role Role, string PrimeiroNome, string Sobrenome, Guid IdExterno)
 {
     // Método para verificar se o usuário autenticado tem permissão para registrar um novo usuário
     public bool PodeRegistrarUsuario(Role roleUsuario)
@@ -24,4 +27,6 @@ public record UsuarioAutenticado(long Id, string Email, Role Role)
 
         return true;
     }
+
+    public string ObterNomeCompleto() => $"{PrimeiroNome} {Sobrenome}";                
 }

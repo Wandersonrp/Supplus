@@ -15,7 +15,7 @@ public class UsuarioAutenticadoBuilder
 
     public void ObterUsuarioAutenticadoAsync(UsuarioAutenticado usuarioAutenticado)
     {
-        _mock.Setup(s => s.ObterUsuarioAutenticadoAsync()).ReturnsAsync(usuarioAutenticado);
+        _mock.Setup(s => s.ObterUsuarioAutenticadoAsync(CancellationToken.None)).ReturnsAsync(usuarioAutenticado);
     }
 
     public IUsuarioAutenticado Build() => _mock.Object;

@@ -30,7 +30,7 @@ public class UsuarioAutenticadoService : IUsuarioAutenticado
     /// <returns>
     /// Uma tarefa que resulta em um <see cref="UsuarioAutenticado"/> representando o usuário autenticado.
     /// </returns>
-    public async Task<UsuarioAutenticado> ObterUsuarioAutenticadoAsync()
+    public async Task<UsuarioAutenticado> ObterUsuarioAutenticadoAsync(CancellationToken cancellationToken)
     {
         var token  = _tokenProvider.ObterToken();
 
@@ -43,7 +43,7 @@ public class UsuarioAutenticadoService : IUsuarioAutenticado
         return await _dbContext.Usuarios
             .AsNoTracking()
             .Where(u => u.IdExterno == identificadorUsuario)
-            .Select(u => new UsuarioAutenticado(u.Id, u.Email, u.Role))
-            .FirstAsync();
+            .Select(u => new UsuarioAutenticado(u.Id, u.Email, u.Role, u.Nome, u.Sobrenome, u.IdExterno))
+            .FirstAsync(cancellationToken);
     }
 }
