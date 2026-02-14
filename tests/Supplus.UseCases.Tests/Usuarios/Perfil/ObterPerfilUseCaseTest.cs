@@ -1,4 +1,4 @@
-﻿using Supplus.Application.UseCases.Usuarios.Usuarios;
+﻿using Supplus.Application.UseCases.Usuarios.Perfil;
 using Supplus.Domain.Models;
 using UtilitariosCompartilhados.Tests.Builders.Services;
 
