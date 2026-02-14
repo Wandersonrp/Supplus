@@ -22,7 +22,8 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
     public RegistrarUsuarioUseCase(
         IUsuarioRepository usuarioRepository, 
         IUnitOfWork unitOfWork, 
-        IUsuarioAutenticado usuarioAutenticado, IEmailService emailService)
+        IUsuarioAutenticado usuarioAutenticado, 
+        IEmailService emailService)
     {
         _usuarioRepository = usuarioRepository;
         _unitOfWork = unitOfWork;
