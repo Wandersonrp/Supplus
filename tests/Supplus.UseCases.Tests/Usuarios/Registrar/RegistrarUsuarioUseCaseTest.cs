@@ -23,7 +23,13 @@ public class RegistrarUsuarioUseCaseTest
         var request = new RequestRegistrarUsuarioJson(primeiroNome, sobrenome, email, role);
 
         // Usuario Admin
-        var usuarioAuenticado = new UsuarioAutenticado(Id: 1, Email: "admin@admin.com", Role: Domain.Enums.Role.Administrador);
+        var usuarioAuenticado = new UsuarioAutenticado(
+            Id: 1, 
+            Email: "admin@admin.com", 
+            Role: Domain.Enums.Role.Administrador, 
+            PrimeiroNome: "Admin", 
+            Sobrenome: "Admin", 
+            IdExterno: Guid.NewGuid());
 
         var sut = CriarUseCase(usuarioAuenticado, CancellationToken.None);
 
@@ -52,7 +58,13 @@ public class RegistrarUsuarioUseCaseTest
         var request = new RequestRegistrarUsuarioJson(primeiroNome, sobrenome, email, role);
 
         // Usuario Admin
-        var usuarioAuenticado = new UsuarioAutenticado(Id: 1, Email: "admin@admin.com", Role: Domain.Enums.Role.Administrador);
+        var usuarioAuenticado = new UsuarioAutenticado(
+            Id: 1, 
+            Email: "admin@admin.com", 
+            Role: Domain.Enums.Role.Administrador, 
+            PrimeiroNome: "Admin", 
+            Sobrenome: "Admin", 
+            IdExterno: Guid.NewGuid());
 
         // Usuario que já existe no banco
         var usuarioExistente = new Usuario(email, primeiroNome, sobrenome, usuarioAuenticado.Id);
@@ -81,7 +93,13 @@ public class RegistrarUsuarioUseCaseTest
         var request = new RequestRegistrarUsuarioJson(primeiroNome, sobrenome, email, role);
 
         // Usuario Suporte
-        var usuarioAuenticado = new UsuarioAutenticado(Id: 2, Email: "suporte@suporte.com", Role: Domain.Enums.Role.AgenteSuporte);        
+        var usuarioAuenticado = new UsuarioAutenticado(
+            Id: 2, 
+            Email: "suporte@suporte.com", 
+            Role: Domain.Enums.Role.AgenteSuporte, 
+            PrimeiroNome: "Suporte", 
+            Sobrenome: "Suporte", 
+            IdExterno: Guid.NewGuid());        
 
         var sut = CriarUseCase(usuarioAuenticado, CancellationToken.None);
 
