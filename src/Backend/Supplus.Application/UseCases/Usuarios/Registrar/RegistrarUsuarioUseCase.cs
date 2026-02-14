@@ -36,7 +36,7 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
 
         // Agente de Suporte só pode criar usuários comuns
         if (!usuarioAutenticado.PodeRegistrarUsuario((Role)request.Role))
-            return ResultadoPersonalizado<ResponseUsuarioJson>.Falha(ErroPadronizado.SemPermissaoErro()); 
+            return ResultadoPersonalizado<ResponseUsuarioJson>.Falha(ErroPadronizado.SemPermissaoErro(MensagensErro.PERMISSOES_INVALIDAS)); 
 
         var resultado = Validar(request);
 
