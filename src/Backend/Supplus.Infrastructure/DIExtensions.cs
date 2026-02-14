@@ -2,14 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Supplus.Application.Services.Notificacoes;
 using Supplus.Domain.Repositories;
 using Supplus.Domain.Services;
 using Supplus.Domain.Services.Tokens;
+using Supplus.Infrastructure.Configurations;
 using Supplus.Infrastructure.Data.Context;
 using Supplus.Infrastructure.Data.Repositories;
 using Supplus.Infrastructure.Extensions;
 using Supplus.Infrastructure.Services;
-using Supplus.Infrastructure.Services.Seguranca.Tokens;
+using Supplus.Infrastructure.Services.Notificacoes.Email;
 using Supplus.Infrastructure.Services.Seguranca.Tokens.Jwt;
 using System.Reflection;
 
@@ -27,6 +29,8 @@ public static class DIExtensions
         
         ConfiguraRepositorios(services);
         ConfiguraServicos(services, configuration);
+
+        services.Configure<EmailConfig>(configuration.GetSection("Config:EmailConfig"));
     }
     
     private static void ConfiguraDbContext(IServiceCollection services, IConfiguration configuration)
@@ -72,6 +76,7 @@ public static class DIExtensions
         services
             .AddScoped<IGeradorAccessToken>(_ => new GeradorTokenJwt(chaveAssinatura, expiracaoEmMinutos))
             .AddScoped<IValidadorAccessToken>(_ => new ValidadorTokenJwt(chaveAssinatura))
-            .AddScoped<IUsuarioAutenticado, UsuarioAutenticadoService>();
-    }
+            .AddScoped<IUsuarioAutenticado, UsuarioAutenticadoService>()
+            .AddScoped<IEmailService, EmailService>();
+    }    
 }
