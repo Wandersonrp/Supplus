@@ -16,7 +16,10 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUsuarioAutenticado _usuarioAutenticado;
 
-    public RegistrarUsuarioUseCase(IUsuarioRepository usuarioRepository, IUnitOfWork unitOfWork, IUsuarioAutenticado usuarioAutenticado)
+    public RegistrarUsuarioUseCase(
+        IUsuarioRepository usuarioRepository, 
+        IUnitOfWork unitOfWork, 
+        IUsuarioAutenticado usuarioAutenticado)
     {
         _usuarioRepository = usuarioRepository;
         _unitOfWork = unitOfWork;
@@ -25,7 +28,7 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
 
     public async Task<ResultadoPersonalizado<ResponseUsuarioJson>> Executar(RequestRegistrarUsuarioJson request, CancellationToken token)
     {
-        var usuarioAutenticado = await _usuarioAutenticado.ObterUsuarioAutenticadoAsync();
+        var usuarioAutenticado = await _usuarioAutenticado.ObterUsuarioAutenticadoAsync(token);
 
         // Agente de Suporte só pode criar usuários comuns
         if (!usuarioAutenticado.PodeRegistrarUsuario((Role)request.Role))
@@ -50,7 +53,13 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
 
         await _unitOfWork.CommitAsync();
 
-        var responseUsuario = new ResponseUsuarioJson(usuario.IdExterno,usuario.Nome, usuario.Sobrenome, usuario.Email, (Comunicacao.Enums.Role)usuario.Role);
+        var responseUsuario = new ResponseUsuarioJson(
+            usuario.IdExterno, 
+            usuario.Nome, 
+            usuario.Sobrenome, 
+            usuario.Email, 
+            (Comunicacao.Enums.Role)usuario.Role, 
+            usuario.ObterNomeCompleto());
 
         return ResultadoPersonalizado<ResponseUsuarioJson>.Sucesso(responseUsuario);
     }
