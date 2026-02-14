@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Supplus.Comunicacao.Responses;
 using Supplus.Exceptions;
+using Supplus.Exceptions.Mensagens;
 
 namespace Supplus.Api.Controllers;
 
@@ -26,6 +27,7 @@ public abstract class BaseController : ControllerBase
             nameof(CodigosErro.NaoAutorizado) or
                 nameof(CodigosErro.CredencialInvalida) => Unauthorized(resultado?.Erro?.Mensagem is not null ?
                 new ResponseErroJson(resultado.Erro.Mensagem!) : null),
+            nameof(CodigosErro.SemPermissao) => Forbid(),
             _ => throw new NotImplementedException("Código de erro não mapeado para resposta HTTP.")
         };
     }
