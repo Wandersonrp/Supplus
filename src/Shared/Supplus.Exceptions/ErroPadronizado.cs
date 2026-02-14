@@ -24,6 +24,7 @@ public sealed record class ErroPadronizado(string Codigo, string? Mensagem = nul
     private static readonly string CredencialInvalida = CodigosErro.CredencialInvalida;
     private static readonly string NaoAutorizado = CodigosErro.NaoAutorizado;
     private static readonly string ErroInternoServidor = CodigosErro.ErroIternoServidor;
+    private static readonly string SemPermissao = CodigosErro.SemPermissao;
 
     public static readonly ErroPadronizado Nenhum = new(string.Empty, string.Empty, new List<string>());
 
@@ -42,6 +43,8 @@ public sealed record class ErroPadronizado(string Codigo, string? Mensagem = nul
     }
 
     public static ErroPadronizado NaoAutorizadoErro(string? mensagem = null) => new ErroPadronizado(NaoAutorizado, Mensagem: mensagem);
+
+    public static ErroPadronizado SemPermissaoErro(string? mensagem = null) => new ErroPadronizado(SemPermissao, Mensagem: mensagem);
 
     public static ErroPadronizado ErroInternoServidorErro() => new ErroPadronizado(ErroInternoServidor, Mensagem: MensagensErro.ERRO_DESCONHECIDO);
 }
