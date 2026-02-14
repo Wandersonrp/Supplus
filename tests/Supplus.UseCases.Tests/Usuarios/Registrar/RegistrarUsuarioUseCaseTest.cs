@@ -80,7 +80,7 @@ public class RegistrarUsuarioUseCaseTest
         Assert.Equal(String.Format(MensagensErro.CONFLITO, "Usuário"), resultado.Erro.Mensagem);        
     }
 
-    [Theory(DisplayName = "Agente de Suporte não deve poder registrar usuários do Administrador e Suporte.")]
+    [Theory(DisplayName = "Agente de Suporte não deve poder registrar usuários do tipo Administrador e Suporte.")]
     [InlineData(Role.AgenteSuporte)]
     [InlineData(Role.Administrador)]
     public async Task Suporte_Nao_Deve_Poder_Registrar_Usuario_Admin_E_Suporte(Role role)
@@ -120,12 +120,17 @@ public class RegistrarUsuarioUseCaseTest
         var usuarioRepository = new UsuarioRepositoryBuilder();
         var unitOfWork = UnitOfWorkBuilder.Build();
         var usuarioAutenticadoService = new UsuarioAutenticadoBuilder();
+        var emailService = new EmailServiceBuilder().Build();
 
         if (usuario is not null)
             usuarioRepository.ExisteUsuarioComEmailAsync(usuario.Email, token);
 
         usuarioAutenticadoService.ObterUsuarioAutenticadoAsync(usuarioAutenticado);
 
-        return new RegistrarUsuarioUseCase(usuarioRepository.Build(), unitOfWork, usuarioAutenticadoService.Build());
+        return new RegistrarUsuarioUseCase(
+            usuarioRepository.Build(), 
+            unitOfWork, 
+            usuarioAutenticadoService.Build(), 
+            emailService);
     }
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Senha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #0078d7;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+            .header h1 {
+                margin: 0;
+                font-size: 22px;
+            }
+
+        .content {
+            padding: 30px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 24px;
+            background-color: #0078d7;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: #f4f6f8;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #777777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Bem-vindo ao Supplus!</h1>
+        </div>
+        <div class="content">
+            <p>Olá <strong>{{NomeUsuario}}</strong>,</p>
+            <p>Seu cadastro foi realizado com sucesso. Para começar a usar sua conta, você precisa:</p>
+            <ol>
+                <li>Registrar sua senha</li>
+                <li>Confirmar seu endereço de e-mail</li>
+            </ol>
+            <p>Clique no botão abaixo para configurar sua senha e confirmar seu e-mail:</p>
+            <a href="{{LinkCadastroSenha}}" class="button">Registrar minha senha</a>
+            <p>Se você não solicitou este cadastro, por favor ignore este e-mail.</p>
+        </div>
+        <div class="footer">
+            © 2026 Supplus - Todos os direitos reservados
+        </div>
+    </div>
+</body>
+</html>

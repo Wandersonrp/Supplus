@@ -1,4 +1,6 @@
-﻿using Supplus.Comunicacao.Requests.Usuarios;
+﻿using Supplus.Application.DTOs;
+using Supplus.Application.Services.Notificacoes;
+using Supplus.Comunicacao.Requests.Usuarios;
 using Supplus.Comunicacao.Responses.Usuarios;
 using Supplus.Comunicacao.Validators.Usuarios;
 using Supplus.Domain.Entities;
@@ -15,15 +17,18 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUsuarioAutenticado _usuarioAutenticado;
+    private readonly IEmailService _emailService;
 
     public RegistrarUsuarioUseCase(
         IUsuarioRepository usuarioRepository, 
         IUnitOfWork unitOfWork, 
-        IUsuarioAutenticado usuarioAutenticado)
+        IUsuarioAutenticado usuarioAutenticado, 
+        IEmailService emailService)
     {
         _usuarioRepository = usuarioRepository;
         _unitOfWork = unitOfWork;
         _usuarioAutenticado = usuarioAutenticado;
+        _emailService = emailService;
     }
 
     public async Task<ResultadoPersonalizado<ResponseUsuarioJson>> Executar(RequestRegistrarUsuarioJson request, CancellationToken token)
@@ -32,7 +37,7 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
 
         // Agente de Suporte só pode criar usuários comuns
         if (!usuarioAutenticado.PodeRegistrarUsuario((Role)request.Role))
-            return ResultadoPersonalizado<ResponseUsuarioJson>.Falha(ErroPadronizado.NaoAutorizadoErro(MensagensErro.PERMISSOES_INVALIDAS)); 
+            return ResultadoPersonalizado<ResponseUsuarioJson>.Falha(ErroPadronizado.SemPermissaoErro(MensagensErro.PERMISSOES_INVALIDAS)); 
 
         var resultado = Validar(request);
 
@@ -51,6 +56,8 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
             usuarioAutenticado.Id, 
             (Role)request.Role);
 
+        await _usuarioRepository.AdicionarAsync(usuario);
+
         await _unitOfWork.CommitAsync();
 
         var responseUsuario = new ResponseUsuarioJson(
@@ -61,6 +68,22 @@ public class RegistrarUsuarioUseCase : BaseUseCase<RequestRegistrarUsuarioJson, 
             (Comunicacao.Enums.Role)usuario.Role, 
             usuario.ObterNomeCompleto());
 
+        var emailDto = new EmailDTO(
+            Destinatario: request.Email, 
+            Assunto: "Bem-vindo ao Supplus!", 
+            NomeTemplate: "BoasVindas", 
+            new Dictionary<string, string>
+            {
+                { "NomeUsuario", usuario.Nome },
+                { "LinkCadastroSenha", "https://google.com" }
+            });
+
+        try
+        {
+            await _emailService.EnviarAsync(emailDto);
+        }
+        catch { }
+        
         return ResultadoPersonalizado<ResponseUsuarioJson>.Sucesso(responseUsuario);
     }
 }

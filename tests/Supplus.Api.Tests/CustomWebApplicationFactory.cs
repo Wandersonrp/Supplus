@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Supplus.Api.Tests.Fakers;
+using Supplus.Application.Services.Notificacoes;
 using Supplus.Domain.Entities;
 using Supplus.Domain.Enums;
 using Supplus.Infrastructure.Data.Context;
@@ -50,9 +52,17 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
                     .All();
             });
 
+            var descriptorEmailService = services
+                .SingleOrDefault(d => d.ServiceType == typeof(IEmailService));
+
+            if(descriptorEmailService is not null)
+                services.Remove(descriptorEmailService);
+
+            services.AddScoped<IEmailService, EmailServiceFake>();
+
             using var scope = services.BuildServiceProvider().CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<SupplusDbContext>();
-            var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher<Usuario>>();                      
+            var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher<Usuario>>();                                  
 
             ControleMigration.AplicarMigration(connectionString, scope.ServiceProvider);
 

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Backend\Supplus.Application\Supplus.Application.csproj" />
     <ProjectReference Include="..\..\src\Backend\Supplus.Domain\Supplus.Domain.csproj" />
   </ItemGroup>
 
