@@ -35,6 +35,30 @@ public class SupplusDbContext : DbContext
             e.Property(u => u.Id)
                 .HasColumnName("IdRefreshToken");
         });
+
+        modelBuilder.Entity<Categoria>(e =>
+        {
+            e.HasQueryFilter(c => c.Status == Status.Ativo);
+            
+            e.Property(c => c.Id)
+                .HasColumnName("IdCategoria");
+
+            e.HasMany(c => c.Chamados)
+                .WithOne(ch => ch.Categoria)
+                .HasForeignKey(ch => ch.IdCategoria);
+        });
+
+        modelBuilder.Entity<Chamado>(e =>
+        {
+            e.HasQueryFilter(c => c.Status == Status.Ativo);
+
+            e.Property(c => c.Id)
+                .HasColumnName("IdChamado");
+
+            e.HasOne(c => c.Agente)
+                .WithMany(a => a.Chamados)
+                .HasForeignKey(c => c.IdAgente);
+        });
             
         base.OnModelCreating(modelBuilder);
     }
