@@ -9,6 +9,7 @@ public class EntidadeBase
     public DateTime CriadoEm { get; private set; }
     public long? CriadoPor { get; private set; }
     public DateTime? AtualizadoEm { get; private set; }
+    public long? AtualizadoPor { get; private set; }
     public DateTime? DeletadoEm { get; private set; }
     public long? DeletadoPor { get; private set; }
 
@@ -23,7 +24,13 @@ public class EntidadeBase
         CriadoPor = criadoPor;
     }
 
-    protected virtual void DefinirAtualizadoEm() => AtualizadoEm = DateTime.UtcNow;
+    protected virtual void DefinirAtualizadoEm(long atualizadoPor)
+    {
+        AtualizadoEm = DateTime.UtcNow;
+        AtualizadoPor = atualizadoPor;
+    }
+
+    protected virtual void DefinirAtualizadoEm () => AtualizadoEm = DateTime.UtcNow;
 
     protected virtual void Inativar(long? deletadoPor = null, string? motivoDelecao = null)
     {
