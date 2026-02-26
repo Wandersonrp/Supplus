@@ -6,13 +6,13 @@ namespace Supplus.Api.Handlers;
 
 /// <summary>
 /// Handler de autorização responsável por validar se o usuário autenticado possui as permissões 
-/// necessárias para acessar a funcionalidade de registro de usuários.
+/// necessárias para acessar funcionalidades e realizar ações destinadas a agentes internos, como Administradores e Agentes de Suporte.
 /// </summary>
 /// <remarks>
 /// Este handler verifica se o usuário possui os perfis de <see cref="Role.Administrador"/> 
 /// ou <see cref="Role.AgenteSuporte"/> contidos nas Claims do JWT.
 /// </remarks>
-public class RegistrarUsuarioHandler : AuthorizationHandler<RegistrarUsuarioRequirement>
+public class AgenteInternoHandler : AuthorizationHandler<AgenteInternoRequirement>
 {
     /// <summary>
     /// Avalia o requisito de autorização verificando as Roles do usuário no contexto atual.
@@ -24,7 +24,7 @@ public class RegistrarUsuarioHandler : AuthorizationHandler<RegistrarUsuarioRequ
     /// Se o usuário for um Administrador ou Agente de Suporte, o requisito é marcado como bem-sucedido. 
     /// A lógica detalhada de hierarquia (quem o suporte pode criar) deve ser tratada na camada de aplicação (Caso de Uso).
     /// </remarks>
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RegistrarUsuarioRequirement requirement)
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, AgenteInternoRequirement requirement)
     {
         var usuario = context.User;
 
