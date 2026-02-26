@@ -15,6 +15,10 @@ public sealed class Usuario : EntidadeBase
     private readonly List<RefreshToken> _refreshTokens = new List<RefreshToken>();
     public IReadOnlyCollection<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
 
+    private readonly List<Chamado> _chamados = new List<Chamado>();
+    public IReadOnlyCollection<Chamado> Chamados => _chamados.AsReadOnly();
+
+
     private Usuario()
     {
     }
