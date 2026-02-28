@@ -4,6 +4,7 @@ using Supplus.Application.UseCases.Auth.Login;
 using Supplus.Application.UseCases.Auth.RereshTokens;
 using Supplus.Application.UseCases.Usuarios.Registrar;
 using Supplus.Application.UseCases.Usuarios.Perfil;
+using Supplus.Application.UseCases.Chamados.Criar;
 
 namespace Supplus.Application;
 
@@ -21,7 +22,8 @@ public static class DIExtensions
             .AddScoped<ILoginUseCase, LoginUseCase>()
             .AddScoped<IGerarRefreshTokenUseCase, GerarRefreshTokenUseCase>()
             .AddScoped<IRegistrarUsuarioUseCase, RegistrarUsuarioUseCase>()
-            .AddScoped<IObterPerfilUseCase, ObterPerfilUseCase>();
+            .AddScoped<IObterPerfilUseCase, ObterPerfilUseCase>()
+            .AddScoped<ICriarChamadoUseCase, CriarChamadoUseCase>();
     }
 
     private static void ConfiguraServices(IServiceCollection services)

@@ -13,6 +13,7 @@ public abstract class VersaoBase : ForwardOnlyMigration
             .WithColumn("CriadoEm").AsDateTime().NotNullable()
             .WithColumn("CriadoPor").AsInt64().Nullable()
             .WithColumn("AtualizadoEm").AsDateTime().Nullable()
+            .WithColumn("AtualizadoPor").AsInt64().Nullable()
             .WithColumn("DeletadoEm").AsDateTime().Nullable()
             .WithColumn("DeletadoPor").AsInt64().Nullable()
             .WithColumn("MotivoDelecao").AsString(300).Nullable()

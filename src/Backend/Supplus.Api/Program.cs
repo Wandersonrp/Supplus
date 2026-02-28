@@ -20,7 +20,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IAuthorizationHandler, RegistrarUsuarioHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, AgenteInternoHandler>();
 
 builder.Services.AddRouting(options =>
 {
@@ -50,7 +50,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization(options =>
 {    
     options.AddPolicy(Policies.PodeRegistrarUsuario, policy =>
-        policy.AddRequirements(new RegistrarUsuarioRequirement()));
+        policy.AddRequirements(new AgenteInternoRequirement()));
 });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

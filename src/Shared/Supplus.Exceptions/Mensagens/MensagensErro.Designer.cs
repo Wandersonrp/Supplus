@@ -106,6 +106,15 @@ namespace Supplus.Exceptions.Mensagens {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a {0} de id {1} não encontrado(a)..
+        /// </summary>
+        public static string NAO_ENCONTRADO {
+            get {
+                return ResourceManager.GetString("NAO_ENCONTRADO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Operação cancelada pelo usuário..
         /// </summary>
         public static string OPERACAO_CANCELADA {

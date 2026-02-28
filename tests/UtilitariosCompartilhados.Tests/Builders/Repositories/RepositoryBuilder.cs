@@ -18,5 +18,10 @@ public class RepositoryBuilder<TEntidade> where TEntidade : EntidadeBase
         _mock.Setup(r => r.ObterPorIdAsync(entidade.Id)).ReturnsAsync(entidade);
     }
 
+    public void ObterPorIdExternoAsync(TEntidade entidade)
+    {
+        _mock.Setup(r => r.ObterPorIdExternoAsync(entidade.IdExterno)).ReturnsAsync(entidade);
+    }
+    
     public IRepository<TEntidade> Build() => _mock.Object;
 }

@@ -2,4 +2,4 @@
 
 namespace Supplus.Api.Requirements;
 
-public class RegistrarUsuarioRequirement : IAuthorizationRequirement { }
+public class AgenteInternoRequirement : IAuthorizationRequirement { }

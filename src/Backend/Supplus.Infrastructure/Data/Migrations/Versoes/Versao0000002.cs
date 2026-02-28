@@ -2,7 +2,7 @@
 
 namespace Supplus.Infrastructure.Data.Migrations.Versoes;
 
-[Migration(VersoesMigration.CRIAR_TABELA_REFRESH_TOKEN, "Cria tabela de Usuario")]
+[Migration(VersoesMigration.CRIAR_TABELA_REFRESH_TOKEN, "Cria tabela de RefreshToken")]
 public class Versao0000002 : VersaoBase
 {
     public override void Up()
