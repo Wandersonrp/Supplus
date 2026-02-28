@@ -16,7 +16,7 @@ public class CriarChamadoValidator : BaseValidator<RequestCriarChamadoJson>
         RuleFor(x => x.Descricao)
             .Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage(String.Format(MensagensErro.CAMPO_OBRIGATORIO, nameof(RequestCriarChamadoJson.Descricao)))
-            .MaximumLength(100).WithMessage(String.Format(MensagensErro.TAMANHO_MAXIMO_CAMPO, nameof(RequestCriarChamadoJson.Descricao), 1000));
+            .MaximumLength(1000).WithMessage(String.Format(MensagensErro.TAMANHO_MAXIMO_CAMPO, nameof(RequestCriarChamadoJson.Descricao), 1000));
 
         RuleFor(x => x.Prioridade)
             .Cascade(CascadeMode.Stop)
