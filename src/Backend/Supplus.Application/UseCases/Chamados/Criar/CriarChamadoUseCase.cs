@@ -1,6 +1,5 @@
 ﻿using Supplus.Comunicacao.Requests.Chamados;
 using Supplus.Comunicacao.Responses.Chamados;
-using Supplus.Comunicacao.Responses.Usuarios;
 using Supplus.Comunicacao.Validators.Chamados;
 using Supplus.Domain.Entities;
 using Supplus.Domain.Enums;
