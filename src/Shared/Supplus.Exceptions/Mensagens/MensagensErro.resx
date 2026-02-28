@@ -132,6 +132,9 @@
   <data name="ERRO_DESCONHECIDO" xml:space="preserve">
     <value>Erro desconhecido.</value>
   </data>
+  <data name="NAO_ENCONTRADO" xml:space="preserve">
+    <value>{0} de id {1} não encontrado(a).</value>
+  </data>
   <data name="OPERACAO_CANCELADA" xml:space="preserve">
     <value>Operação cancelada pelo usuário.</value>
   </data>
