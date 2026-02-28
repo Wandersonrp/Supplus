@@ -13,10 +13,10 @@ public sealed class Chamado : EntidadeBase
     public DateTime? ResolvidoEm { get; private set; }
     public DateTime? FechadoEm { get; private set; }
 
-    public long IdUsuarioComum { get; private set; }
+    public long? IdUsuarioComum { get; private set; }
     public Usuario UsuarioComum { get; private set; }
 
-    public long IdAgente { get; private set; }
+    public long? IdAgente { get; private set; }
     public Usuario Agente { get; private set; }
 
     public long IdCategoria { get; private set; }
