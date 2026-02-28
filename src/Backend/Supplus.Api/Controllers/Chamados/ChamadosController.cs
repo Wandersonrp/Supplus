@@ -24,6 +24,6 @@ public class ChamadosController : BaseController
         if (resultado.Falhou)
             return TratarFalha(resultado);
 
-        return CreatedAtAction(nameof(CriarAsync), resultado.Valor);
+        return Created(nameof(CriarAsync), resultado.Valor);
     }
 }
