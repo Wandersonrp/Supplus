@@ -10,7 +10,7 @@ public sealed class Categoria : EntidadeBase
 
     private Categoria() { }
 
-    public Categoria(long criadoPor, string nome, string descricao) : base(criadoPor)
+    public Categoria(string nome, string descricao, long? criadoPor = null) : base(criadoPor)
     {        
         Nome = nome;
         Descricao = descricao;
