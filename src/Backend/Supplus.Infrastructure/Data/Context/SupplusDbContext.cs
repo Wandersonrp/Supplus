@@ -12,6 +12,7 @@ public class SupplusDbContext : DbContext
 
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<Chamado> Chamados { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -46,6 +47,18 @@ public class SupplusDbContext : DbContext
             e.HasMany(c => c.Chamados)
                 .WithOne(ch => ch.Categoria)
                 .HasForeignKey(ch => ch.IdCategoria);
+
+            // Seed Data
+            e.HasData(
+                new Categoria(nome: "Infraestrutura", descricao: "Problemas relacionados a rede, hardware e equipamentos."),
+                new Categoria(nome: "Software", descricao: "Erros, bugs ou solicitações em sistemas e aplicativos."),
+                new Categoria(nome: "Acesso", descricao: "Solicitações de criação de contas, permissões e recuperação de senha."),
+                new Categoria(nome: "Suporte ao Usuário", descricao: "Dúvidas gerais, treinamento e auxílio no uso de ferramentas."),
+                new Categoria(nome: "Segurança", descricao: "Incidentes de segurança, acessos indevidos e proteção de dados."),
+                new Categoria(nome: "Serviços Administrativos", descricao: "Solicitações de materiais, crachá, reservas de sala e apoio administrativo."),
+                new Categoria(nome: "Melhoria", descricao: "Sugestões de melhorias, novas funcionalidades e projetos internos."),
+                new Categoria(nome: "Outros", descricao: "Chamados que não se enquadram nas categorias existentes."));
+
         });
 
         modelBuilder.Entity<Chamado>(e =>
