@@ -2,7 +2,7 @@
 
 namespace Supplus.Infrastructure.Data.Migrations.Versoes;
 
-[Migration(VersoesMigration.ALTERAR_FKS_NULLABE_CATEGORIA, "Altera as colunas IdUsuarioComum e IdAgente de NotNull para Nullable")]
+[Migration(VersoesMigration.ALTERAR_FKS_NULLABLE_CATEGORIA, "Altera as colunas IdUsuarioComum e IdAgente de NotNull para Nullable")]
 public class Versao0000006 : ForwardOnlyMigration
 {
     public override void Up()
