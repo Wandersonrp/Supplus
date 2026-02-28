@@ -1,5 +1,7 @@
 ﻿using Supplus.Comunicacao.Requests.Chamados;
 using Supplus.Comunicacao.Responses.Chamados;
+using Supplus.Comunicacao.Responses.Usuarios;
+using Supplus.Comunicacao.Validators.Chamados;
 using Supplus.Domain.Entities;
 using Supplus.Domain.Enums;
 using Supplus.Domain.Repositories;
@@ -9,7 +11,7 @@ using Supplus.Exceptions.Mensagens;
 
 namespace Supplus.Application.UseCases.Chamados.Criar;
 
-public class CriarChamadoUseCase : ICriarChamadoUseCase
+public class CriarChamadoUseCase : BaseUseCase<RequestCriarChamadoJson, CriarChamadoValidator>, ICriarChamadoUseCase
 {
     private readonly IUsuarioAutenticado _usuarioAutenticadoService;
     private readonly IRepository<Chamado> _chamadoRepository;
@@ -30,6 +32,11 @@ public class CriarChamadoUseCase : ICriarChamadoUseCase
 
     public async Task<ResultadoPersonalizado<ResponseChamadoJson>> Executar(RequestCriarChamadoJson request, CancellationToken token)
     {
+        var resultado = Validar(request);
+
+        if (resultado != ErroPadronizado.Nenhum)
+            return ResultadoPersonalizado<ResponseChamadoJson>.Falha(resultado);
+
         var usuarioAutenticado = await _usuarioAutenticadoService.ObterUsuarioAutenticadoAsync(token);
 
         var categoria = await _categoriaRepository.ObterPorIdExternoAsync(request.IdCategoria);
